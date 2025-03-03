@@ -1,57 +1,73 @@
-/*jshint esversion: 8 */
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const pinoLogger = require('./logger');
+require('dotenv').config();             // dotenvを読み込み環境変数を設定
+const express = require('express');     // expressモジュールをインポートして、アプリケーションを作成
+const cors = require('cors');           // CORS（クロスオリジンリソースシェアリング）を有効にするためのモジュール
+const pinoLogger = require('./logger'); // ログ出力用のpinoLoggerをインポート
+const connectToDatabase = require('./models/db');           // データベース接続のための関数をインポート
+const { loadData } = require("./util/import-mongo/index");  // MongoDBデータのインポートを行うための関数をインポート
 
-const connectToDatabase = require('./models/db');
-const {loadData} = require("./util/import-mongo/index");
-
-
+// express アプリケーションを作成
 const app = express();
-app.use("*",cors());
+
+// 全てのリクエストに対してCORSを適用
+app.use("*", cors());
+
+// ポート番号を設定
 const port = 3060;
 
-// Connect to MongoDB; we just do this one time
+// MongoDBに接続（1回のみ行う）
 connectToDatabase().then(() => {
+    // 接続成功時にログを出力
     pinoLogger.info('Connected to DB');
 })
-    .catch((e) => console.error('Failed to connect to DB', e));
+    .catch((e) => {
+        // 接続失敗時にエラーログを出力
+        console.error('Failed to connect to DB', e);
+    });
 
-
+// リクエストのボディをJSONとして解析するミドルウェアを使用
 app.use(express.json());
 
-// Route files
-// Gift API Task 1: import the giftRoutes and store in a constant called giftroutes
-//{{insert code here}}
 
-// Search API Task 1: import the searchRoutes and store in a constant called searchRoutes
-//{{insert code here}}
+// 検索APIのルートをインポートし、searchRoutesという定数に格納
+// ここに検索APIのインポートを追加する予定
+// const searchRoutes = require('./routes/searchRoutes');  // 例：コメントアウト
 
-
+// pino-httpをインポートして、HTTPリクエストのログを記録
 const pinoHttp = require('pino-http');
+
+// ロガーをインポート（pinoLoggerは上でインポートしたもの）
 const logger = require('./logger');
 
+// pinoHttpを使って、HTTPリクエストのログを取得するミドルウェアを使用
 app.use(pinoHttp({ logger }));
 
-// Use Routes
-// Gift API Task 2: add the giftRoutes to the server by using the app.use() method.
-//{{insert code here}}
+// ルートファイルのインポート
+// ギフトAPIのルートをインポートし、giftRoutesという定数に格納
+const giftRoutes = require('./routes/giftRoutes');
 
-// Search API Task 2: add the searchRoutes to the server by using the app.use() method.
-//{{insert code here}}
+// ギフトAPIをサーバーに追加する（'/api/gifts' というエンドポイント）
+app.use('/api/gifts', giftRoutes);
 
+// 検索APIをサーバーに追加する（'/api/search'というエンドポイント）
+// searchRoutesを追加する予定（コメントアウトで示しています）
+// app.use('/api/search', searchRoutes);  // 例：コメントアウト
 
-// Global Error Handler
+// グローバルエラーハンドラー
 app.use((err, req, res, next) => {
+    // エラー発生時にエラーログを出力
     console.error(err);
+
+    // クライアントに500ステータスを返す
     res.status(500).send('Internal Server Error');
 });
 
-app.get("/",(req,res)=>{
-    res.send("Inside the server")
-})
+// ルートエンドポイント（確認用）
+app.get("/", (req, res) => {
+    // サーバーが稼働していることを返す
+    res.send("Inside the server");
+});
 
+// サーバーを起動し、指定されたポートでリクエストを待機
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
