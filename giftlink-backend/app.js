@@ -27,11 +27,6 @@ connectToDatabase().then(() => {
 // リクエストのボディをJSONとして解析するミドルウェアを使用
 app.use(express.json());
 
-
-// 検索APIのルートをインポートし、searchRoutesという定数に格納
-// ここに検索APIのインポートを追加する予定
-// const searchRoutes = require('./routes/searchRoutes');  // 例：コメントアウト
-
 // pino-httpをインポートして、HTTPリクエストのログを記録
 const pinoHttp = require('pino-http');
 
