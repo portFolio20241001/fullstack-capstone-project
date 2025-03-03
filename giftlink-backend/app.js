@@ -48,9 +48,11 @@ const giftRoutes = require('./routes/giftRoutes');
 // ギフトAPIをサーバーに追加する（'/api/gifts' というエンドポイント）
 app.use('/api/gifts', giftRoutes);
 
+// 検索APIのルートをインポートし、searchRoutesという定数に格納
+const searchRoutes = require('./routes/searchRoutes'); // 検索APIルートをインポート
+
 // 検索APIをサーバーに追加する（'/api/search'というエンドポイント）
-// searchRoutesを追加する予定（コメントアウトで示しています）
-// app.use('/api/search', searchRoutes);  // 例：コメントアウト
+app.use('/api/search', searchRoutes);  // searchRoutesを使用して検索APIを追加
 
 // グローバルエラーハンドラー
 app.use((err, req, res, next) => {
