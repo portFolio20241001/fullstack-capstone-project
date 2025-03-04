@@ -1,11 +1,11 @@
 /* 画像のプレースホルダのスタイル */
 .image-placeholder-large {
-    width: 100%; /* Task 1: 幅を100%に設定 */
-    height: 400px; /* Task 1: 高さを400pxに設定 */
-    position: relative; /* Task 1: 位置を相対的に設定 */
-    background-color: #f0f0f0; /* Task 1: プレースホルダの背景色を設定 */
-    /* 必要に応じて追加のスタイルを記述 */
+    width: 100%; /* 幅を100%に設定 */
+    height: 400px; /* 高さを400pxに設定 */
+    position: relative; /* 相対的に配置 */
+    background-color: #f0f0f0; /* プレースホルダの背景色 */
 }
+
 
 /* 商品画像のスタイル */
 .product-image-large {

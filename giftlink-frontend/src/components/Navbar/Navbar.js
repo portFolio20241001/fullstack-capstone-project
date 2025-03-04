@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';  // react-router-domからLinkコンポーネントをインポート
 
 // Navbarコンポーネントを定義
 export default function Navbar() {
@@ -17,11 +18,16 @@ export default function Navbar() {
                         {/* ホームページへのリンク設定 */}
                         <a className="nav-link" href="/home.html">Home</a> {/* home.html へのリンク */}
                     </li>
-                    
+
                     {/* ギフトページへのリンク */}
                     <li className="nav-item">
                         {/* ギフトページへのリンク設定 */}
                         <a className="nav-link" href="/app">Gifts</a> {/* ギフトページへの更新されたリンク */}
+                    </li>
+
+                    {/* SearchPageへのリンクを追加 */}
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/app/search">Search</Link>  {/* Searchページへのリンク */}
                     </li>
                 </ul>
             </div>

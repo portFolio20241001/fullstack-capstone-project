@@ -28,6 +28,7 @@ function MainPage() {
 
     // タスク2: 詳細ページへの遷移
     const goToDetailsPage = (productId) => {
+        console.log("aaa")
         navigate(`/app/product/${productId}`); // 製品IDを使って詳細ページへ遷移
     };
 
