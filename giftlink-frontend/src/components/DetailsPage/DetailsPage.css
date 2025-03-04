@@ -1,36 +1,69 @@
-/* Style for image placeholder */
+/* 画像のプレースホルダのスタイル */
 .image-placeholder-large {
-    /* Task 1 styling */
-    {{insert code here}}
+    width: 100%; /* Task 1: 幅を100%に設定 */
+    height: 400px; /* Task 1: 高さを400pxに設定 */
+    position: relative; /* Task 1: 位置を相対的に設定 */
+    background-color: #f0f0f0; /* Task 1: プレースホルダの背景色を設定 */
+    /* 必要に応じて追加のスタイルを記述 */
 }
 
-/* Style for product image */
+/* 商品画像のスタイル */
 .product-image-large {
-    /* Task 2 styling */
-    {{insert code here}}
+    width: 100%; /* Task 2: 幅を100%に設定 */
+    height: 100%; /* Task 2: 高さを100%に設定 */
+    object-fit: cover; /* Task 2: 画像が領域を覆うように設定 */
+    /* 必要に応じて追加のスタイルを記述 */
 }
 
-/* Style for 'no image available' placeholder */
+/* '画像なし'プレースホルダのスタイル */
 .no-image-available-large {
-    /* Task 3 styling */
-    {{insert code here}}
+    display: flex; /* Task 3: フレックスボックスを使用 */
+    align-items: center; /* Task 3: テキストを垂直に中央揃え */
+    justify-content: center; /* Task 3: テキストを水平に中央揃え */
+    background-color: #ccc; /* Task 3: 背景色を設定 */
+    color: #333; /* Task 3: テキスト色を設定 */
+    font-size: 18px; /* Task 3: フォントサイズを設定 */
+    /* 必要に応じて追加のスタイルを記述 */
 }
 
-/* Style for card header */
+/* カードヘッダーのスタイル */
 .card-header {
-    /* Task 4 styling */
-    {{insert code here}}
+    background-color: #007bff; /* Task 4: 背景色を選択 */
+    color: #fff; /* Task 4: テキスト色を白に設定 */
+    text-align: center; /* テキストを中央揃え */
+    padding: 15px; /* パディングを15pxに設定 */
+    /* 必要に応じて追加のスタイルを記述 */
 }
 
-/* Style for details title */
+/* 詳細タイトルのスタイル */
 .details-title {
-    /* Task 5 styling */
-    {{insert code here}}
+    font-size: 28px; /* Task 5: フォントサイズを28pxに設定 */
+    color: #333; /* Task 5: テキスト色を設定 */
+    font-weight: bold; /* Task 5: タイトルを太字に設定 */
+    /* 必要に応じて追加のスタイルを記述 */
 }
 
-/* Style for comments section */
+/* コメントセクションのスタイル */
 .comments-section {
-    /* Task 6 styling */
-    {{insert code here}}
+    /* Task 6: コメントセクションの可読性を向上 */
+    margin-top: 20px; /* 上部の余白を20pxに設定 */
+    /* 必要に応じて追加のスタイルを記述 */
 }
 
+/* 個々のコメントカードのスタイル */
+.comments-section .card {
+    margin-bottom: 15px; /* カード間の間隔を15pxに設定 */
+    /* 必要に応じて個々のコメントカードに追加のスタイルを記述 */
+}
+
+/* コメントの投稿者の名前のスタイル */
+.comments-section .comment-author {
+    font-weight: bold; /* コメントの投稿者名を太字に設定 */
+    /* 投稿者名のスタイルを追加 */
+}
+
+/* コメント本文のスタイル */
+.comments-section .comment-text {
+    /* コメント本文の追加スタイル */
+    color: #555; /* コメントのテキスト色を設定 */
+}
