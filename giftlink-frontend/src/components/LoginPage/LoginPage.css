@@ -1,0 +1,54 @@
+/* ログインカードの背景色を白に設定 */
+.login-card {
+    background-color: #fff;
+    /* ボックスシャドウを追加してカードに陰影をつける */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ラベル文字を太字に設定 */
+.login-card .form-label {
+    font-weight: 600;
+}
+
+/* 入力フィールドの角を少し丸くする */
+.login-card input {
+    border-radius: 0.25rem;
+}
+
+/* ボタンにパディングと角丸を設定 */
+.login-card .btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+}
+
+/* プライマリーボタン（青）の背景色と枠線を設定 */
+.login-card .btn-primary {
+    background-color: #0056b3;
+    border: none;
+}
+
+/* セカンダリーボタン（赤）の背景色と枠線を設定 */
+.login-card .btn-secondary {
+    background-color: #dc3545;
+    border: none;
+}
+
+/* プライマリーテキストの色（青）を設定 */
+.login-card .text-primary {
+    color: #0056b3;
+}
+
+/* セカンダリーテキストの色（グレー）を設定 */
+.login-card .text-secondary {
+    color: #6c757d;
+}
+
+/* 追加のスタイル：プライマリーテキストリンクのホバー時に下線を表示 */
+a.text-primary:hover {
+    text-decoration: underline;
+}
+
+/* 追加のスタイル：セカンダリーテキストリンクのホバー時に下線を表示 */
+a.text-secondary:hover {
+    text-decoration: underline;
+}
