@@ -21,6 +21,8 @@ const JWT_SECRET = process.env.JWT_SECRET;
 // ユーザー登録用のAPIエンドポイントを作成
 router.post('/register', async (req, res) => {
     try {
+        console.log("ポイント1")
+
         // Task 1: MongoDBの`giftsdb`に接続（`db.js`内の`connectToDatabase`を使用）
         const db = await connectToDatabase();
 
@@ -62,6 +64,7 @@ router.post('/register', async (req, res) => {
         // レスポンスとしてJWTトークンとメールアドレスを返す
         res.json({ authtoken, email });
     } catch (e) {
+        console.log("ポイント2")
         // サーバーエラー発生時、500エラーを返す
         return res.status(500).send('Internal server error');
     }
