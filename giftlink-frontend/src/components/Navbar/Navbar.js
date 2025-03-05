@@ -1,36 +1,110 @@
-import React from 'react';
-import { Link } from 'react-router-dom';  // react-router-domからLinkコンポーネントをインポート
+import React, { useEffect } from 'react';                   // Reactをインポート
+import { Link, useNavigate } from 'react-router-dom';       // LinkとuseNavigateをインポート
+import { urlConfig } from '../../config';                   // urlConfigをインポート（バックエンドURLなど）
+import { useAppContext } from '../../context/AuthContext';  // アプリケーションの状態管理用コンテキストをインポート
 
 // Navbarコンポーネントを定義
-export default function Navbar() {
-    return (
-        // ナビゲーションバーを定義
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            {/* ロゴとしてリンクを表示 */}
-            <a className="navbar-brand" href="/">GiftLink</a>
+export default function Navbar() {  
+    // コンテキストからログイン状態、ユーザー名を取得
+    const { isLoggedIn, setIsLoggedIn, userName, setUserName } = useAppContext();  
 
-            {/* ナビゲーションメニューの表示・非表示を管理するためのコンテナ */}
-            <div className="collapse navbar-collapse" id="navbarNav">
-                {/* ナビゲーション項目のリスト */}
-                <ul className="navbar-nav">
-                    {/* ホームページへのリンク */}
+    const navigate = useNavigate();  // ページ遷移を制御するためのuseNavigateを定義
+
+    // コンポーネントがマウントされた際に実行される副作用処理
+    // isLoggedIn、setIsLoggedIn、setUserNameが変更された時にも再実行される
+    useEffect(() => {  
+        const authTokenFromSession = sessionStorage.getItem('auth-token');  // セッションから認証トークンを取得
+        const nameFromSession = sessionStorage.getItem('name');             // セッションからユーザー名を取得
+
+        // 認証トークンが存在する場合
+        if (authTokenFromSession) {  
+            if (isLoggedIn && nameFromSession) {    // すでにログインしている場合
+                setUserName(nameFromSession);           // ユーザー名を設定
+            } else {                                // ログインしていない場合
+                sessionStorage.removeItem('auth-token');    // セッションから認証トークンを削除
+                sessionStorage.removeItem('name');          // セッションから名前を削除
+                sessionStorage.removeItem('email');         // セッションからメールを削除
+                setIsLoggedIn(false);                       // ログイン状態をfalseに設定
+            }
+        }
+    }, [isLoggedIn, setIsLoggedIn, setUserName]);  // isLoggedIn、setIsLoggedIn、setUserNameが変更された時に再実行
+
+    // ログアウト処理
+    const handleLogout = () => {  
+        sessionStorage.removeItem('auth-token');    // セッションから認証トークンを削除
+        sessionStorage.removeItem('name');          // セッションから名前を削除
+        sessionStorage.removeItem('email');         // セッションからメールを削除
+        setIsLoggedIn(false);                       // ログイン状態をfalseに設定
+        navigate(`/app`);                           // アプリのトップページに遷移
+    };
+
+    // プロフィールページに遷移する処理
+    const profileSecton = () => {  
+        navigate(`/app/profile`);  // プロフィールページに遷移
+    };
+
+
+    return (  // JSXでナビゲーションバーを描画
+    <>
+        {/* ナビゲーションバーの開始 */}
+        <nav className="navbar navbar-expand-lg navbar-light bg-light" id='navbar_container'> 
+
+            {/* ブランド名リンク */}
+            <a className="navbar-brand" href={`${urlConfig.backendUrl}/app`}>GiftLink</a>  
+
+            {/* ナビゲーションのトグルボタン */}
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">  
+                <span className="navbar-toggler-icon"></span>  {/* トグルアイコン */}
+            </button>
+
+            {/* ナビゲーションメニューのコンテンツ */}
+            <div className="collapse navbar-collapse justify-content-end" id="navbarNav">  
+                {/* ナビゲーションメニューのリスト */}
+                <ul className="navbar-nav">  
+                    {/* Homeページへのリンク */}
                     <li className="nav-item">
-                        {/* ホームページへのリンク設定 */}
-                        <a className="nav-link" href="/home.html">Home</a> {/* home.html へのリンク */}
+                        <a className="nav-link" href="/home.html">Home</a>  
                     </li>
-
                     {/* ギフトページへのリンク */}
                     <li className="nav-item">
-                        {/* ギフトページへのリンク設定 */}
-                        <a className="nav-link" href="/app">Gifts</a> {/* ギフトページへの更新されたリンク */}
+                        <Link className="nav-link" to="/app">Gifts</Link>  
                     </li>
-
-                    {/* SearchPageへのリンクを追加 */}
+                    {/* 検索ページへのリンク */}
                     <li className="nav-item">
-                        <Link className="nav-link" to="/app/search">Search</Link>  {/* Searchページへのリンク */}
+                        <Link className="nav-link" to="/app/search">Search</Link>  
                     </li>
+                    {/* ログイン状態に応じたナビゲーション */}
+                    <ul className="navbar-nav ml-auto">  
+                        {isLoggedIn ? (  // ログインしている場合
+                        <>
+                            <li className="nav-item">
+                                {/* ユーザー名の表示 */}
+                                <span className="nav-link" style={{ color: "black", cursor: "pointer" }} onClick={profileSecton}>
+                                    Welcome, {userName}
+                                </span>  
+                            </li>
+                            <li className="nav-item">
+                                {/* ログアウトボタン */}
+                                <button className="nav-link login-btn" onClick={handleLogout}>Logout</button>  
+                            </li>
+                        </>
+                        ) : (  // ログインしていない場合
+                        <>
+                            <li className="nav-item">
+                                {/* ログインページへのリンク */}
+                                <Link className="nav-link login-btn" to="/app/login">Login</Link>  
+                            </li>
+                            <li className="nav-item">
+                                {/* 登録ページへのリンク */}
+                                <Link className="nav-link register-btn" to="/app/register">Register</Link>  
+                            </li>
+                        </>
+                        )}
+                    </ul>
                 </ul>
             </div>
-        </nav>
+
+        </nav>  {/* ナビゲーションバーの終了 */}
+    </>
     );
-}
+}  // Navbarコンポーネントの終了
