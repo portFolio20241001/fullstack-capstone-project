@@ -5,14 +5,11 @@ const pinoLogger = require('./logger'); // ログ出力用のpinoLoggerをイン
 const connectToDatabase = require('./models/db');           // データベース接続のための関数をインポート
 const { loadData } = require("./util/import-mongo/index");  // MongoDBデータのインポートを行うための関数をインポート
 
-// express アプリケーションを作成
-const app = express();
+const app = express();  // express アプリケーションを作成
 
-// 全てのリクエストに対してCORSを適用
-app.use("*", cors());
+app.use("*", cors());   // 全てのリクエストに対してCORSを適用
 
-// ポート番号を設定
-const port = 3060;
+const port = 3060;      // ポート番号を設定
 
 // MongoDBに接続（1回のみ行う）
 connectToDatabase().then(() => {
@@ -24,30 +21,24 @@ connectToDatabase().then(() => {
         console.error('Failed to connect to DB', e);
     });
 
-// リクエストのボディをJSONとして解析するミドルウェアを使用
-app.use(express.json());
+app.use(express.json());    // リクエストのボディをJSONとして解析するミドルウェアを使用
 
-// pino-httpをインポートして、HTTPリクエストのログを記録
-const pinoHttp = require('pino-http');
+// HTTPリクエストのログを取得する
+const pinoHttp = require('pino-http');  // pino-httpをインポートして、HTTPリクエストのログを記録
+const logger = require('./logger');     // ロガーをインポート（pinoLoggerは上でインポートしたもの）
+app.use(pinoHttp({ logger }));          // pinoHttpを使って、HTTPリクエストのログを取得するミドルウェアを使用
 
-// ロガーをインポート（pinoLoggerは上でインポートしたもの）
-const logger = require('./logger');
+// giftRoutesへルーティング
+const giftRoutes = require('./routes/giftRoutes');  // ギフトAPIのルートをインポートし、giftRoutesという定数に格納
+app.use('/api/gifts', giftRoutes);  // ギフトAPIをサーバーに追加する（'/api/gifts' というエンドポイント）
 
-// pinoHttpを使って、HTTPリクエストのログを取得するミドルウェアを使用
-app.use(pinoHttp({ logger }));
+// authRoutesへルーティング
+const authRoutes = require('./routes/authRoutes');
+app.use('/api/auth', authRoutes);
 
-// ルートファイルのインポート
-// ギフトAPIのルートをインポートし、giftRoutesという定数に格納
-const giftRoutes = require('./routes/giftRoutes');
-
-// ギフトAPIをサーバーに追加する（'/api/gifts' というエンドポイント）
-app.use('/api/gifts', giftRoutes);
-
-// 検索APIのルートをインポートし、searchRoutesという定数に格納
-const searchRoutes = require('./routes/searchRoutes'); // 検索APIルートをインポート
-
-// 検索APIをサーバーに追加する（'/api/search'というエンドポイント）
-app.use('/api/search', searchRoutes);  // searchRoutesを使用して検索APIを追加
+// searchRoutesへルーティング
+const searchRoutes = require('./routes/searchRoutes'); // 検索APIのルートをインポートし、searchRoutesという定数に格納
+app.use('/api/search', searchRoutes);  // 検索APIをサーバーに追加する（'/api/search'というエンドポイント）
 
 // グローバルエラーハンドラー
 app.use((err, req, res, next) => {
