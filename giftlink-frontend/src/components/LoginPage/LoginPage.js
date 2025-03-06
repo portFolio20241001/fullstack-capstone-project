@@ -3,6 +3,8 @@ import { urlConfig } from '../../config';                   // ステップ1 - �
 import { useAppContext } from '../../context/AuthContext';  // ステップ1 - タスク2: 認証コンテキストから `useAppContext` をインポート
 import { useNavigate } from 'react-router-dom';             // ステップ1 - タスク3: React Router の `useNavigate` フックをインポート（ページ遷移用）
 
+import { Link } from 'react-router-dom';  // Link をインポート
+
 
 // スタイルシートのインポート
 import './LoginPage.css';
@@ -130,7 +132,7 @@ function LoginPage() {
 
                         {/* 新規登録を促すリンク */}
                         <p className="mt-4 text-center">
-                            New here? <a href="/app/register" className="text-primary">Register Here</a>  {/* 新規登録ページへのリンク */}
+                            New here? <Link to="/app/register" className="text-primary">Register Here</Link>  {/* 新規登録ページへのリンク */}
                         </p>
                     </div>
                 </div>
