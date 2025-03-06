@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';                   // Reactをインポート
 import { Link, useNavigate } from 'react-router-dom';       // LinkとuseNavigateをインポート
-import { urlConfig } from '../../config';                   // urlConfigをインポート（バックエンドURLなど）
 import { useAppContext } from '../../context/AuthContext';  // アプリケーションの状態管理用コンテキストをインポート
 
 // Navbarコンポーネントを定義
@@ -49,8 +48,11 @@ export default function Navbar() {
         {/* ナビゲーションバーの開始 */}
         <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top" id='navbar_container'> 
 
-            {/* ブランド名リンク */}
-            <Link className="navbar-brand" to="/app">GiftLink</Link>  
+            <div className='navbar-brand'>
+                {/* ブランド名リンク */}
+                <Link className="navbar-brand-link" to="/app">GiftLink</Link>  
+            </div>
+
 
             {/* ナビゲーションのトグルボタン */}
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">  
@@ -63,11 +65,11 @@ export default function Navbar() {
                 <ul className="navbar-nav">  
                     {/* ギフトページへのリンク */}
                     <li className="nav-item">
-                        <Link className="nav-link" to="/app">Gifts</Link>  
+                        <Link className="nav-link-gift" to="/app">Gifts</Link>  
                     </li>
                     {/* 検索ページへのリンク */}
                     <li className="nav-item">
-                        <Link className="nav-link" to="/app/search">Search</Link>  
+                        <Link className="nav-link-search" to="/app/search">Search</Link>  
                     </li>
                     {/* ログイン状態に応じたナビゲーション */}
                     <ul className="navbar-nav ml-auto">  

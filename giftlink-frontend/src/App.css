@@ -138,6 +138,7 @@ body,
 
 /* Change the background color of the navbar */
 .navbar {
+  padding-left: 8px;
   background-color: #f8f9fa; /* A light color for contrast with the text */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* A subtle shadow for depth */
 }
@@ -172,6 +173,42 @@ body,
   text-decoration: none;
 }
 
+
+.nav-link.register-btn {
+    background-color: #7800e7; /* A green color for login */
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .nav-link.register-btn:hover {
+    background-color: #0055ff; /* A green color for login */
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .nav-link-search {
+    background-color: #0388ad; /* A green color for login */
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s ease-in-out;
+    text-decoration: none;
+  }
+
+  .nav-link-gift{
+    background-color: #fa2104; /* A green color for login */
+    color: white;   
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s ease-in-out;
+    text-decoration: none;
+  }
+
+
 /* Style for logout button */
 .nav-link.logout-btn {
   background-color: #dc3545; /* A red color for logout */
@@ -187,5 +224,22 @@ body,
   color: white;
   text-decoration: none;
 }
+
+
+
+
+.navbar-brand {
+  padding: 5px;
+  background-color: #0008fa; /* A darker red on hover/focus for logout */
+  color: rgb(23, 158, 241);
+  text-decoration: none;
+  border-radius: 0.25rem;
+}
+
+.navbar-brand-link {
+    padding: 5px;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+  }
 
 
