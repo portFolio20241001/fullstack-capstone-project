@@ -1,18 +1,84 @@
-import React, { useState, useEffect } from 'react';  // React と useState, useEffect をインポート
+import React, { useState, useEffect } from 'react';         // React と useState, useEffect をインポート
+import { urlConfig } from '../../config';                   // ステップ1 - タスク1: 設定ファイルから URL 設定をインポート
+import { useAppContext } from '../../context/AuthContext';  // ステップ1 - タスク2: 認証コンテキストから `useAppContext` をインポート
+import { useNavigate } from 'react-router-dom';             // ステップ1 - タスク3: React Router の `useNavigate` フックをインポート（ページ遷移用）
+
 
 // スタイルシートのインポート
 import './LoginPage.css';
 
 function LoginPage() {
-    // メールアドレスの状態を管理するための useState
+    // ReactのuseStateフックを使用して、emailの状態を管理
     const [email, setEmail] = useState('');
-    // パスワードの状態を管理するための useState
+
+    // ReactのuseStateフックを使用して、passwordの状態を管理
     const [password, setPassword] = useState('');
 
-    // ログイン処理を行う非同期関数
+    // ユーザーが間違ったパスワードを入力した際に、エラーメッセージを表示するための状態
+    const [incorrect, setIncorrect] = useState('');
+
+    // React RouterのuseNavigateフックを使用して、ページ遷移を管理
+    const navigate = useNavigate();
+
+    // セッションストレージから認証トークン（Bearerトークン）を取得
+    const bearerToken = sessionStorage.getItem('bearer-token');
+
+    // グローバルなログイン状態を管理するコンテキストからsetIsLoggedIn関数を取得
+    const { setIsLoggedIn } = useAppContext();
+
+    // コンポーネントがマウントされたときに実行される副作用処理
+    useEffect(() => {
+        // セッションストレージに認証トークンが存在する場合、アプリのメインページへリダイレクト
+        if (sessionStorage.getItem('auth-token')) {
+            navigate('/app');
+        }
+    }, [navigate]);
+
+    // ログイン処理を行う関数
     const handleLogin = async (e) => {
-        e.preventDefault();  // デフォルトのフォーム送信を防止
-    }
+        e.preventDefault(); // フォームのデフォルト送信を防ぐ
+
+        // APIエンドポイントに対してログインリクエストを送信
+        const res = await fetch(`${urlConfig.backendUrl}/api/auth/login`, {
+            method: 'POST', // HTTPメソッドをPOSTに設定
+            headers: {
+                'content-type': 'application/json', // リクエストボディのデータ形式をJSONに指定
+                'Authorization': bearerToken ? `Bearer ${bearerToken}` : '', // Bearerトークンがあればヘッダーに追加
+            },
+            body: JSON.stringify({
+                email: email,       // 入力されたメールアドレスを送信
+                password: password, // 入力されたパスワードを送信
+            }),
+        });
+
+        // レスポンスをJSON形式に変換
+        const json = await res.json();
+        console.log('Json', json); // デバッグ用にJSONデータをコンソールに出力
+
+        // 認証トークンがレスポンスに含まれている場合
+        if (json.authtoken) {
+            // セッションストレージに認証情報を保存
+            sessionStorage.setItem('auth-token', json.authtoken);
+            sessionStorage.setItem('name', json.userName);
+            sessionStorage.setItem('email', json.userEmail);
+
+            // ログイン状態をtrueに設定
+            setIsLoggedIn(true);
+
+            // アプリのメインページへリダイレクト
+            navigate('/app');
+        } else {
+            // ログイン失敗時の処理
+            document.getElementById("email").value = ""; // メールアドレス入力欄をクリア
+            document.getElementById("password").value = ""; // パスワード入力欄をクリア
+            setIncorrect("パスワードが間違っています。もう一度試してください。"); // エラーメッセージを表示
+            
+            // 2秒後にエラーメッセージを非表示にする
+            setTimeout(() => {
+                setIncorrect("");
+            }, 2000);
+        }
+    };
 
     return (
         // 画面全体を囲むコンテナ
@@ -55,6 +121,9 @@ function LoginPage() {
                                 onChange={(e) => setPassword(e.target.value)}  // 入力内容が変わるたびにstateを更新
                             />
                         </div>
+
+                        {/* エラーメッセージを表示するセクション */}
+                        {incorrect && <p className="text-danger text-center">{incorrect}</p>} 
 
                         {/* ログインボタン。クリック時にhandleLogin関数が呼ばれる */}
                         <button className="btn btn-primary w-100 mb-3" onClick={handleLogin}>Login</button>
