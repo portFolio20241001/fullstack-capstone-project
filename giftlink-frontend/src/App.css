@@ -164,10 +164,15 @@ body,
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
   transition: background-color 0.2s ease-in-out;
+
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .nav-link.login-btn:hover,
 .nav-link.login-btn:focus {
+  margin-right: 5px;
+  margin-left: 5px;
   background-color: #218838; /* A darker green on hover/focus for login */
   color: white;
   text-decoration: none;
@@ -175,19 +180,27 @@ body,
 
 
 .nav-link.register-btn {
-    background-color: #7800e7; /* A green color for login */
+    background-color: #0013e7; /* A green color for login */
     color: white;
-    padding: 0.5rem 1rem;
+    margin-right: 10px;
+    margin-left: 5px;
     border-radius: 0.25rem;
     transition: background-color 0.2s ease-in-out;
   }
 
   .nav-link.register-btn:hover {
-    background-color: #0055ff; /* A green color for login */
+    background-color: #0903b3; /* A green color for login */
     color: white;
-    padding: 0.5rem 1rem;
+    margin-right: 10px;
+    margin-left: 5px;
     border-radius: 0.25rem;
     transition: background-color 0.2s ease-in-out;
+  }
+
+
+  .navbar-collapse{
+    text-align: center;
+
   }
 
   .nav-link-search {
@@ -197,7 +210,11 @@ body,
     border-radius: 0.25rem;
     transition: background-color 0.2s ease-in-out;
     text-decoration: none;
+
+    
   }
+
+
 
   .nav-link-gift{
     background-color: #fa2104; /* A green color for login */
@@ -228,10 +245,11 @@ body,
 
 
 
-.navbar-brand {
+.navbar-brand,
+.navbar-brand:hover{
   padding: 5px;
-  background-color: #0008fa; /* A darker red on hover/focus for logout */
-  color: rgb(23, 158, 241);
+  background-color: #fa009e; /* A darker red on hover/focus for logout */
+  color: rgb(255, 255, 255);
   text-decoration: none;
   border-radius: 0.25rem;
 }

@@ -65,11 +65,11 @@ export default function Navbar() {
                 <ul className="navbar-nav">  
                     {/* ギフトページへのリンク */}
                     <li className="nav-item">
-                        <Link className="nav-link-gift" to="/app">Gifts</Link>  
+                        <Link className="nav-link" to="/app">Gifts</Link>  
                     </li>
                     {/* 検索ページへのリンク */}
                     <li className="nav-item">
-                        <Link className="nav-link-search" to="/app/search">Search</Link>  
+                        <Link className="nav-link" to="/app/search">Search</Link>  
                     </li>
                     {/* ログイン状態に応じたナビゲーション */}
                     <ul className="navbar-nav ml-auto">  
