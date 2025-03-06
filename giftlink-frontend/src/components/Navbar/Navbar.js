@@ -47,10 +47,10 @@ export default function Navbar() {
     return (  // JSXでナビゲーションバーを描画
     <>
         {/* ナビゲーションバーの開始 */}
-        <nav className="navbar navbar-expand-lg navbar-light bg-light" id='navbar_container'> 
+        <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top" id='navbar_container'> 
 
             {/* ブランド名リンク */}
-            <a className="navbar-brand" href={`${urlConfig.backendUrl}/app`}>GiftLink</a>  
+            <Link className="navbar-brand" to="/app">GiftLink</Link>  
 
             {/* ナビゲーションのトグルボタン */}
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">  
@@ -61,10 +61,6 @@ export default function Navbar() {
             <div className="collapse navbar-collapse justify-content-end" id="navbarNav">  
                 {/* ナビゲーションメニューのリスト */}
                 <ul className="navbar-nav">  
-                    {/* Homeページへのリンク */}
-                    <li className="nav-item">
-                        <a className="nav-link" href="/home.html">Home</a>  
-                    </li>
                     {/* ギフトページへのリンク */}
                     <li className="nav-item">
                         <Link className="nav-link" to="/app">Gifts</Link>  
