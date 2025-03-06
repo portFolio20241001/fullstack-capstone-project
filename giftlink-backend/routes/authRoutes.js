@@ -70,5 +70,71 @@ router.post('/register', async (req, res) => {
     }
 });
 
+
+// ログインエンドポイントを定義
+router.post('/login', async (req, res) => {
+    console.log("\n\n ログイン処理を開始"); // ログイン処理の開始をコンソールに出力
+
+    try {
+        // MongoDBデータベースに接続
+        const db = await connectToDatabase();  
+        // "users" コレクション（テーブルのようなもの）を取得
+        const collection = db.collection("users");
+
+        // リクエストで受け取ったemailを元に、ユーザー情報を取得
+        const theUser = await collection.findOne({ email: req.body.email });
+
+        // ユーザーが存在する場合
+        if (theUser) {
+            // 入力されたパスワードと保存されているハッシュ化されたパスワードを比較
+            let result = await bcryptjs.compare(req.body.password, theUser.password);
+
+            // パスワードが一致しない場合
+            if (!result) {
+                logger.error('パスワードが間違っています'); // ログにエラーを記録
+                return res.status(404).json({ error: 'パスワードが間違っています' }); // 404エラーを返す
+            }
+
+            // JWT（JSON Web Token）のペイロード（認証情報）を作成
+            let payload = {
+                user: {
+                    id: theUser._id.toString(), // ユーザーIDを文字列に変換して格納
+                },
+            };
+
+            // ユーザー名とメールアドレスを取得
+            const userName = theUser.firstName;
+            const userEmail = theUser.email;
+
+            // JWTを作成（秘密鍵 JWT_SECRET を使用）
+            const authtoken = jwt.sign(payload, JWT_SECRET);
+
+            // ログイン成功のログを記録
+            logger.info('ユーザーが正常にログインしました');
+
+            // 認証トークン、ユーザー名、メールアドレスをレスポンスとして返す
+            return res.status(200).json({ 
+                authtoken, 
+                userName, 
+                userEmail 
+            });
+        } else {
+            // ユーザーが見つからなかった場合
+            logger.error('ユーザーが見つかりません'); // エラーログを記録
+            return res.status(404).json({ error: 'ユーザーが見つかりません' }); // 404エラーを返す
+        }
+    } catch (e) {
+        // 予期しないエラーが発生した場合
+        logger.error(e); // エラーログを記録
+        return res.status(500).json({ 
+            error: '内部サーバーエラーが発生しました', 
+            details: e.message 
+        }); // 500エラー（サーバー内部エラー）を返す
+    }
+});
+
+
+
+
 // ルーターをエクスポート（他のモジュールで使用可能にする）
 module.exports = router;
