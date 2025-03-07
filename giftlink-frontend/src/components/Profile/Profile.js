@@ -95,11 +95,19 @@ const Profile = () => {
           navigate("/");
         }, 1000);
       } else {
-        throw new Error("プロフィールの更新に失敗しました"); // エラーをスロー
+        console.log("エラーポイント1")
+
+        // エラーメッセージを取得してスロー
+        const errorData = await response.json();
+        const errorMessages = errorData.errors.map(error => error.msg).join(", ");
+        throw new Error(`エラー!プロフィールの更新に失敗しました: ${errorMessages}`); // エラーをスロー
+
       }
     } catch (error) {
-      console.error(error);
-      // エラー発生時の処理
+        console.log("エラーポイント2")
+        console.error(error);
+        // エラー発生時の処理
+        setChanged(error.message); // throwしたエラーメッセージを表示
     }
   };
 
@@ -126,6 +134,14 @@ const Profile = () => {
             />
           </label>
           <button type="submit">保存</button> {/* 保存ボタン */}
+          
+        {/* メッセージ表示エリア */}
+        {changed && (
+          <div className={`feedback-message ${changed.includes('正常') ? 'success' : 'error'}`}>
+            {changed}
+          </div>
+        )}
+
         </form>
       ) : ( // 通常表示モードの場合のUI
         <div className="profile-details">

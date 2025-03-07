@@ -142,10 +142,15 @@ router.put('/update', [
 ], async (req, res) => {
     // Task 2: `validationResult` を使用して入力を検証し、エラーがある場合は適切なメッセージを返す
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
         // ログにエラーを記録
         logger.error('更新リクエストのバリデーションエラー', errors.array());
-        return res.status(400).json({ errors: errors.array() });
+
+        return res.status(400).json({ 
+            errors: errors.array()
+        });        
+        
     }
 
     try {
