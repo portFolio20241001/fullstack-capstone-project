@@ -73,12 +73,20 @@ function LoginPage() {
             // ログイン失敗時の処理
             document.getElementById("email").value = ""; // メールアドレス入力欄をクリア
             document.getElementById("password").value = ""; // パスワード入力欄をクリア
-            setIncorrect("パスワードが間違っています。もう一度試してください。"); // エラーメッセージを表示
-            
-            // 2秒後にエラーメッセージを非表示にする
+
+            console.log(json.error)
+
+            if (json.error === 'パスワードが間違っています') {
+                setIncorrect("パスワードが間違っています。もう一度試してください。");
+            } else if (json.error === 'ユーザーが見つかりません。登録されていないメールアドレスです。') {
+                setIncorrect("このメールアドレスは登録されていません。");
+            } else {
+                setIncorrect("ログインに失敗しました。もう一度お試しください。");
+            }
+
             setTimeout(() => {
                 setIncorrect("");
-            }, 2000);
+            }, 3000);
         }
     };
 

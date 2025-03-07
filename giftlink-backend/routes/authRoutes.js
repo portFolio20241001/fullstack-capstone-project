@@ -121,7 +121,7 @@ router.post('/login', async (req, res) => {
         } else {
             // ユーザーが見つからなかった場合
             logger.error('ユーザーが見つかりません'); // エラーログを記録
-            return res.status(404).json({ error: 'ユーザーが見つかりません' }); // 404エラーを返す
+            return res.status(404).json({ error: 'ユーザーが見つかりません。登録されていないメールアドレスです。' }); // 404エラーを返す
         }
     } catch (e) {
         // 予期しないエラーが発生した場合
