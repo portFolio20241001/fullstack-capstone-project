@@ -1,133 +1,151 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import './Profile.css'
-import {urlConfig} from '../../config';
-import { useAppContext } from '../../context/AuthContext';
+import React, { useEffect, useState } from "react";          // Reactの基本フックをインポート
+import { useNavigate } from "react-router-dom";              // ルーティング用のフックをインポート
+import './Profile.css'                                       // CSSファイルをインポート
+import {urlConfig} from '../../config';                      // 設定ファイルからURL情報をインポート
+import { useAppContext } from '../../context/AuthContext';   // コンテキストをインポート
 
 const Profile = () => {
-  const [userDetails, setUserDetails] = useState({});
- const [updatedDetails, setUpdatedDetails] = useState({});
- const {setUserName} = useAppContext();
- const [changed, setChanged] = useState("");
+  const [userDetails, setUserDetails] = useState({});       // ユーザーの詳細情報を管理する状態
+  const [updatedDetails, setUpdatedDetails] = useState({}); // 更新後のユーザー情報を管理する状態
+  const { setUserName } = useAppContext();                  // コンテキストからユーザー名の更新関数を取得
+  const [changed, setChanged] = useState("");               // 更新メッセージを管理する状態
 
- const [editMode, setEditMode] = useState(false);
-  const navigate = useNavigate();
+  const [editMode, setEditMode] = useState(false);          // 編集モードの状態を管理
+  const navigate = useNavigate();                           // ナビゲーション用の関数を取得
+
   useEffect(() => {
-    const authtoken = sessionStorage.getItem("auth-token");
+    const authtoken = sessionStorage.getItem("auth-token"); // 認証トークンを取得
     if (!authtoken) {
-      navigate("/app/login");
+      navigate("/app/login");     // 未ログインの場合はログイン画面へ遷移
     } else {
-      fetchUserProfile();
+      fetchUserProfile();       // ユーザープロフィールを取得
     }
   }, [navigate]);
 
+  // ユーザーのプロフィール情報を取得する関数
   const fetchUserProfile = async () => {
     try {
-      const authtoken = sessionStorage.getItem("auth-token");
-      const email = sessionStorage.getItem("email");
-      const name=sessionStorage.getItem('name');
+      const authtoken = sessionStorage.getItem("auth-token");   // 認証トークンを取得
+      const email = sessionStorage.getItem("email");            // ユーザーのメールアドレスを取得
+      const name = sessionStorage.getItem("name");              // ユーザー名を取得
+
       if (name || authtoken) {
-                const storedUserDetails = {
-                  name: name,
-                  email:email
-                };
+        const storedUserDetails = {
+          name: name,
+          email: email
+        };
 
-                setUserDetails(storedUserDetails);
-                setUpdatedDetails(storedUserDetails);
-              }
-} catch (error) {
-  console.error(error);
-  // Handle error case
-}
-};
-
-const handleEdit = () => {
-setEditMode(true);
-};
-
-const handleInputChange = (e) => {
-setUpdatedDetails({
-  ...updatedDetails,
-  [e.target.name]: e.target.value,
-});
-};
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  try {
-    const authtoken = sessionStorage.getItem("auth-token");
-    const email = sessionStorage.getItem("email");
-
-    if (!authtoken || !email) {
-      navigate("/app/login");
-      return;
+        setUserDetails(storedUserDetails);      // ユーザー詳細を更新
+        setUpdatedDetails(storedUserDetails);   // 更新用のデータも設定
+      }
+    } catch (error) {
+      console.error(error);
+      // エラー発生時の処理
     }
+  };
 
-    const payload = { ...updatedDetails };
-    const response = await fetch(`${urlConfig.backendUrl}/api/auth/update`, {
-      //Step 1: Task 1
-      //Step 1: Task 2
-      //Step 1: Task 3
+  // 編集モードに切り替える関数
+  const handleEdit = () => {
+    setEditMode(true);
+  };
+
+  // 入力変更時に状態を更新する関数
+  const handleInputChange = (e) => {
+    setUpdatedDetails({
+      ...updatedDetails,
+      [e.target.name]: e.target.value,
     });
+  };
 
-    if (response.ok) {
-      // Update the user details in session storage
-      //Step 1: Task 4
-      //Step 1: Task 5
-      setUserDetails(updatedDetails);
-      setEditMode(false);
-      // Display success message to the user
-      setChanged("Name Changed Successfully!");
-      setTimeout(() => {
-        setChanged("");
-        navigate("/");
-      }, 1000);
+  // フォーム送信時の処理
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // デフォルトの送信動作を防ぐ
 
-    } else {
-      // Handle error case
-      throw new Error("Failed to update profile");
+    try {
+      const authtoken = sessionStorage.getItem("auth-token");   // 認証トークンを取得
+      const email = sessionStorage.getItem("email");            // ユーザーのメールアドレスを取得
+
+      if (!authtoken || !email) {
+        navigate("/app/login"); // 未認証の場合はログイン画面へ遷移
+        return;
+      }
+
+      const payload = { ...updatedDetails }; // 更新データを作成
+      const response = await fetch(`${urlConfig.backendUrl}/api/auth/update`, {
+        method: "PUT", // HTTPリクエストのメソッドを指定
+        headers: {
+          "Authorization": `Bearer ${authtoken}`,   // 認証トークンをヘッダーに追加
+          "Content-Type": "application/json",       // JSONデータを送信
+          "Email": email,                           // ユーザーのメールアドレスをヘッダーに追加
+        },
+        body: JSON.stringify(payload), // JSON形式でデータを送信
+      });
+
+      if (response.ok) {
+        // 更新が成功した場合
+        setUserName(updatedDetails.name);                       // コンテキストのユーザー名を更新
+        sessionStorage.setItem("name", updatedDetails.name);    // セッションストレージのユーザー名を更新
+        setUserDetails(updatedDetails);                         // ユーザー詳細を更新
+        setEditMode(false);                                     // 編集モードを終了
+        setChanged("名前が正常に変更されました！");               // 成功メッセージを表示
+
+        // 一定時間後にメッセージを消してトップページへ遷移
+        setTimeout(() => {
+          setChanged("");
+          navigate("/");
+        }, 1000);
+      } else {
+        throw new Error("プロフィールの更新に失敗しました"); // エラーをスロー
+      }
+    } catch (error) {
+      console.error(error);
+      // エラー発生時の処理
     }
-  } catch (error) {
-    console.error(error);
-    // Handle error case
-  }
+  };
+
+  return (
+    <div className="profile-container">
+      {editMode ? ( // 編集モードの場合のUI
+        <form onSubmit={handleSubmit}>
+          <label>
+            Email
+            <input
+              type="email"
+              name="email"
+              value={userDetails.email}
+              disabled // メールアドレスは変更不可
+            />
+          </label>
+          <label>
+            Name
+            <input
+              type="text"
+              name="name"
+              value={updatedDetails.name}
+              onChange={handleInputChange} // ユーザー名変更時の処理
+            />
+          </label>
+          <button type="submit">保存</button> {/* 保存ボタン */}
+        </form>
+      ) : ( // 通常表示モードの場合のUI
+        <div className="profile-details">
+          <h1>こんにちは, {userDetails.name}</h1>
+          <p> <b>Email:</b> {userDetails.email}</p>
+          <button onClick={handleEdit}>編集</button> {/* 編集ボタン */}
+          <span 
+            style={{
+              color: 'green',
+              height: '.5cm',
+              display: 'block',
+              fontStyle: 'italic',
+              fontSize: '12px'
+            }}>
+            {changed}
+          </span> {/* 更新メッセージを表示 */}
+        </div>
+      )}
+    </div>
+  );
 };
 
-return (
-<div className="profile-container">
-  {editMode ? (
-<form onSubmit={handleSubmit}>
-<label>
-  Email
-  <input
-    type="email"
-    name="email"
-    value={userDetails.email}
-    disabled // Disable the email field
-  />
-</label>
-<label>
-   Name
-   <input
-     type="text"
-     name="name"
-     value={updatedDetails.name}
-     onChange={handleInputChange}
-   />
-</label>
-
-<button type="submit">Save</button>
-</form>
-) : (
-<div className="profile-details">
-<h1>Hi, {userDetails.name}</h1>
-<p> <b>Email:</b> {userDetails.email}</p>
-<button onClick={handleEdit}>Edit</button>
-<span style={{color:'green',height:'.5cm',display:'block',fontStyle:'italic',fontSize:'12px'}}>{changed}</span>
-</div>
-)}
-</div>
-);
-};
-
-export default Profile;
+export default Profile; // Profileコンポーネントをエクスポート
