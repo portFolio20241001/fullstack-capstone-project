@@ -1,87 +1,87 @@
-
 html {
-  overflow-y: scroll;
+  overflow-y: scroll; /* ページが縦方向にスクロールできるように設定 */
 }
-/* Primary color for headers and important buttons */
+
+/* ヘッダーや重要なボタンのプライマリカラー */
 .custom-card-title,
 .btn-primary {
-  background-color: #0056b3; /* Strong, confident blue */
-  color: white; /* For text on primary color background */
+  background-color: #0056b3; /* 強く、信頼感のある青 */
+  color: white; /* プライマリカラーの背景に対して文字色を白に設定 */
 }
 
-/* Secondary color for hover states and highlights */
+/* ホバー状態やフォーカス時のセカンダリカラー */
 .btn-primary:hover,
 .btn-primary:focus {
-  background-color: #009688; /* Teal */
+  background-color: #009688; /* ティール色 */
 }
 
-/* General background color */
+/* 一般的な背景色 */
 body,
 .page-background {
-  background-color: #f4f4f4; /* Light grey */
-  margin-right: calc(100vw - 100%);
+  background-color: #f4f4f4; /* 明るい灰色 */
+  margin-right: calc(100vw - 100%); /* ページの右マージンを調整 */
 }
 
-/* Background color for cards */
+/* カードの背景色 */
 .card {
-  background-color: #ffffff; /* White */
+  background-color: #ffffff; /* 白色 */
 }
 
-/* Text color */
+/* カード内のタイトルやテキストの文字色 */
 .card-title,
 .card-text {
-  color: #333333; /* Darker grey */
+  color: #333333; /* ダークグレー */
 }
 
-/* Subtle accent color */
+/* サブアクセントカラー */
 .text-muted {
-  color: #6c757d; /* Muted grey */
+  color: #6c757d; /* ミューテッドグレー */
 }
 
-/* Success color for messages or confirmation */
+/* 成功メッセージや確認のための色 */
 .text-success,
 .btn-success {
-  color: #28a745; /* Fresh green */
+  color: #28a745; /* 新鮮な緑色 */
 }
 
 .container {
-  padding: 2rem 15%; /* Adds more space on the sides */
+  padding: 2rem 15%; /* 両サイドに余白を追加 */
 }
 
 .row {
-  justify-content: space-around; /* Adds space between cards */
+  justify-content: space-around; /* カード間に余白を追加 */
 }
 
 .product-card {
-  margin: 1rem 0; /* Adds space above and below each card */
-  border-radius: 10px; /* Rounded corners for card */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  overflow: hidden; /* Ensures nothing spills out of the card's rounded corners */
+  margin: 1rem 0; /* 各カードの上下に余白を追加 */
+  border-radius: 10px; /* カードの角を丸くする */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 深みを出すための影 */
+  overflow: hidden; /* カードの角が丸いため、はみ出しを防ぐ */
 }
 
 .image-placeholder {
   width: 100%;
-  height: 200px; /* Fixed height, adjust as needed */
-  position: relative; /* Set a reference for absolute positioned children */
+  height: 200px; /* 固定の高さを設定（必要に応じて調整） */
+  position: relative; /* 絶対位置に依存する子要素の基準 */
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
 }
 
 .image-placeholder img {
-  position: absolute; /* Position it over the placeholder */
+  position: absolute; /* プレースホルダー上に画像を配置 */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Cover the area without stretching */
+  object-fit: cover; /* ストレッチせず、領域にフィットさせる */
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
 }
 
 .no-image-available {
   width: 100%;
-  height: 200px; /* Adjust based on your design */
-  background-color: #ddd; /* A neutral background color */
+  height: 200px; /* デザインに応じて調整 */
+  background-color: #ddd; /* 中立的な背景色 */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -92,172 +92,168 @@ body,
   border-top-right-radius: 0.25rem;
 }
 
-
 .card-body {
   padding: 1rem;
-  flex-grow: 1; /* Make body grow to fill space */
+  flex-grow: 1; /* 空きスペースを埋めるために拡大 */
   display: flex;
-  flex-direction: column; /* Stack elements vertically */
+  flex-direction: column; /* 垂直方向に要素を配置 */
 }
 
 .date-added {
-  margin-top: auto; /* Pushes everything else to the top, and this to the bottom */
+  margin-top: auto; /* 他の要素を上に押し上げ、これを下に配置 */
 }
 
 .card-footer {
   padding: 0;
-  border-top: none;
+  border-top: none; /* フッターの上に枠線をなくす */
 }
 
 .btn-primary {
-  display: block; /* Disables inline-block default of buttons */
-  width: 100%; /* Full width */
-  box-sizing: border-box; /* Includes padding and border in the width */
+  display: block; /* ボタンのデフォルトのインラインブロックを解除 */
+  width: 100%; /* ボタンの幅を100%に設定 */
+  box-sizing: border-box; /* 幅にパディングとボーダーを含める */
 }
-/* Highlight condition and age with color */
+
+/* 新しいアイテムを強調表示するための色 */
 .list-group-item-success {
-  color: #28a745; /* Green text color for new items */
+  color: #28a745; /* 新しいアイテムに緑色を設定 */
 }
 
+/* 古いアイテムを警告色で強調表示 */
 .list-group-item-warning {
-  color: #ffc107; /* Yellow text color for older items */
+  color: #ffc107; /* 古いアイテムに黄色を設定 */
 }
 
-/* Customize the navbar brand and links */
+/* ナビゲーションバーのブランドとリンクのカスタマイズ */
 .navbar-brand, .nav-link {
-  font-size: 1.2rem; /* Increase font size */
-  font-weight: 500; /* Medium weight for better visibility */
+  font-size: 1.2rem; /* フォントサイズを大きく */
+  font-weight: 500; /* 中程度のフォントウェイトで視認性を向上 */
 }
 
-/* Increase the font size and weight of nav-item */
+/* ナビゲーションリンクのフォントサイズと太さを増加 */
 .nav-item .nav-link {
-  font-size: 1.1rem; /* Larger font size for nav links */
-  font-weight: bold; /* Bold font weight for emphasis */
-  color: #0056b3; /* Choose a color that stands out */
+  font-size: 1.1rem; /* ナビゲーションリンクのフォントサイズを大きく */
+  font-weight: bold; /* 強調のために太字 */
+  color: #0056b3; /* 目立つ色を設定 */
 }
 
-/* Change the background color of the navbar */
+/* ナビゲーションバーの背景色を変更 */
 .navbar {
   padding-left: 8px;
-  background-color: #f8f9fa; /* A light color for contrast with the text */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* A subtle shadow for depth */
+  background-color: #f8f9fa; /* 明るい背景色 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 深みを加える影 */
 }
 
-/* Add a hover effect to nav links */
+/* ナビゲーションリンクにホバーエフェクトを追加 */
 .nav-item .nav-link:hover {
-  color: #004085; /* A darker shade for hover state */
-  text-decoration: none; /* Optional: Removes the underline on hover */
+  color: #004085; /* ホバー時にダークな色に変更 */
+  text-decoration: none; /* ホバー時の下線を削除 */
 }
 
-/* Highlight the active nav link */
+/* アクティブなナビゲーションリンクを強調表示 */
 .nav-item.active .nav-link, .nav-item .nav-link.active {
-  color: #d63384; /* A distinct color for the active page */
-  background-color: transparent; /* Optional: Adds a background color to the active link */
-  text-decoration: underline; /* Underlines the active link */
-  font-weight: bold; /* Makes the active link bold */
+  color: #d63384; /* アクティブなリンクに明確な色を設定 */
+  background-color: transparent; /* 背景色を透明に設定 */
+  text-decoration: underline; /* アクティブなリンクを下線で強調 */
+  font-weight: bold; /* アクティブリンクを太字に */
 }
 
-/* Style for login button */
+/* ログインボタンのスタイル */
 .nav-link.login-btn {
-  background-color: #28a745; /* A green color for login */
+  background-color: #28a745; /* 緑色のログインボタン */
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
   transition: background-color 0.2s ease-in-out;
-
   margin-right: 5px;
   margin-left: 5px;
 }
 
+/* ログインボタンのホバー/フォーカス時のスタイル */
 .nav-link.login-btn:hover,
 .nav-link.login-btn:focus {
   margin-right: 5px;
   margin-left: 5px;
-  background-color: #218838; /* A darker green on hover/focus for login */
+  background-color: #218838; /* ホバー時にダークな緑色 */
   color: white;
   text-decoration: none;
 }
 
-
+/* 登録ボタンのスタイル */
 .nav-link.register-btn {
-    background-color: #0013e7; /* A green color for login */
-    color: white;
-    margin-right: 10px;
-    margin-left: 5px;
-    border-radius: 0.25rem;
-    transition: background-color 0.2s ease-in-out;
-  }
+  background-color: #0013e7; /* 青色の登録ボタン */
+  color: white;
+  margin-right: 10px;
+  margin-left: 5px;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease-in-out;
+}
 
-  .nav-link.register-btn:hover {
-    background-color: #0903b3; /* A green color for login */
-    color: white;
-    margin-right: 10px;
-    margin-left: 5px;
-    border-radius: 0.25rem;
-    transition: background-color 0.2s ease-in-out;
-  }
+/* 登録ボタンのホバー時のスタイル */
+.nav-link.register-btn:hover {
+  background-color: #0903b3; /* ホバー時に青色をダークに */
+  color: white;
+  margin-right: 10px;
+  margin-left: 5px;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease-in-out;
+}
 
+/* ナビゲーションバーの崩れを防ぐための中央揃え */
+.navbar-collapse{
+  text-align: center;
+}
 
-  .navbar-collapse{
-    text-align: center;
+/* 検索ボタンのスタイル */
+.nav-link-search {
+  background-color: #0388ad; /* 検索ボタンの青色 */
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease-in-out;
+  text-decoration: none;
+}
 
-  }
+/* ギフトボタンのスタイル */
+.nav-link-gift{
+  background-color: #fa2104; /* ギフトボタンの赤色 */
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease-in-out;
+  text-decoration: none;
+}
 
-  .nav-link-search {
-    background-color: #0388ad; /* A green color for login */
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    transition: background-color 0.2s ease-in-out;
-    text-decoration: none;
-
-    
-  }
-
-
-
-  .nav-link-gift{
-    background-color: #fa2104; /* A green color for login */
-    color: white;   
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    transition: background-color 0.2s ease-in-out;
-    text-decoration: none;
-  }
-
-
-/* Style for logout button */
+/* ログアウトボタンのスタイル */
 .nav-link.logout-btn {
-  background-color: #dc3545; /* A red color for logout */
+  background-color: #dc3545; /* ログアウトボタンの赤色 */
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
   transition: background-color 0.2s ease-in-out;
 }
 
+/* ログアウトボタンのホバー/フォーカス時のスタイル */
 .nav-link.logout-btn:hover,
 .nav-link.logout-btn:focus {
-  background-color: #c82333; /* A darker red on hover/focus for logout */
+  background-color: #c82333; /* ホバー時にダークな赤色 */
   color: white;
   text-decoration: none;
 }
 
-
-
-
+/* ナビゲーションバーのブランドのスタイル */
 .navbar-brand,
 .navbar-brand:hover{
   padding: 5px;
-  background-color: #fa009e; /* A darker red on hover/focus for logout */
-  color: rgb(255, 255, 255);
-  text-decoration: none;
-  border-radius: 0.25rem;
+  background-color: #fa009e; /* ブランドの背景色 */
+  color: rgb(255, 255, 255); /* 白色 */
+  text-decoration: none; /* 下線を消去 */
+  border-radius: 0.25rem; /* 角を丸める */
 }
 
+/* ブランドリンクのスタイル */
 .navbar-brand-link {
-    padding: 5px;
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-  }
-
-
+  padding: 5px;
+  color: rgb(255, 255, 255); /* 白色 */
+  text-decoration: none; /* 下線を消去 */
+}
