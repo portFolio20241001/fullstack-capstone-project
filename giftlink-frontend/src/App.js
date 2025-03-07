@@ -32,12 +32,23 @@ function App() {
         ) : (
           <Route path="/" element={<MainPage />} /> // それ以降はMainPageを表示
         )}
-        <Route path="/app" element={<MainPage />} />                        // /appパスでMainPageを表示
-        <Route path="/app/login" element={<LoginPage />} />                 // /app/loginでLoginPageを表示
-        <Route path="/app/register" element={<RegisterPage />} />           // /app/registerでRegisterPageを表示
-        <Route path="/app/search" element={<SearchPage />} />               // /app/searchでSearchPageを表示
-        <Route path="/app/product/:productId" element={<DetailsPage />} />  // /app/product/:productIdでDetailsPageページを表示
-        <Route path="/app/profile" element={<Profile />} />                 // /app/profileでProfileページを表示
+        {/* /appパスでMainPageを表示 */}
+        <Route path="/app" element={<MainPage />} />
+
+        {/* /app/loginでLoginPageを表示 */}
+        <Route path="/app/login" element={<LoginPage />} />
+
+        {/* /app/registerでRegisterPageを表示 */}
+        <Route path="/app/register" element={<RegisterPage />} />
+
+        {/* /app/searchでSearchPageを表示 */}
+        <Route path="/app/search" element={<SearchPage />} />
+
+        {/* /app/product/:productIdでDetailsPageページを表示 */}
+        <Route path="/app/product/:productId" element={<DetailsPage />} />
+
+        {/* /app/profileでProfileページを表示 */}
+        <Route path="/app/profile" element={<Profile />} />
       </Routes>
     </>
   );
