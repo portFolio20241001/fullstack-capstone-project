@@ -134,6 +134,69 @@ router.post('/login', async (req, res) => {
 });
 
 
+// `update` API のルートを定義
+router.put('/update', [
+    body('name').notEmpty().withMessage('名前は必須です'),
+    body('email').isEmail().withMessage('有効なメールアドレスを入力してください'),
+    body('age').optional().isInt({ gt: 0 }).withMessage('年齢は正の整数でなければなりません')
+], async (req, res) => {
+    // Task 2: `validationResult` を使用して入力を検証し、エラーがある場合は適切なメッセージを返す
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        // ログにエラーを記録
+        logger.error('更新リクエストのバリデーションエラー', errors.array());
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+        // Task 3: name, email, age をボディから取得
+        const { name, email, age } = req.body;
+
+        // Task 4: MongoDB に接続
+        const db = await connectToDatabase();
+        const collection = db.collection("users");
+
+        // Task 5: ユーザーの情報を検索
+        const existingUser = await collection.findOne({ email });
+        if (!existingUser) {
+            logger.error('ユーザーが見つかりません');
+            return res.status(404).json({ error: "ユーザーが見つかりません" });
+        }
+
+        // ユーザー情報を更新
+        existingUser.firstName = name;
+        if (age) existingUser.age = age;
+        existingUser.updatedAt = new Date();
+
+        // Task 6: ユーザー情報をデータベースに更新
+        const updatedUser = await collection.findOneAndUpdate(
+            { email },               // 更新対象の条件
+            { $set: existingUser },  // 更新するデータ
+            { returnDocument: 'after' } // 更新後のデータを取得
+        );
+
+        // Task 7: ユーザーの `_id` をペイロードとして JWT 認証トークンを作成（秘密鍵は .env から取得）
+        const payload = {
+            user: {
+                id: updatedUser._id.toString(),
+            },
+        };
+        const authtoken = jwt.sign(payload, JWT_SECRET);
+
+        // 更新成功のログを記録
+        logger.info('ユーザー情報が正常に更新されました');
+
+        // 認証トークンをレスポンスとして返す
+        res.json({ authtoken });
+
+    } catch (error) {
+        // サーバーエラー発生時の処理
+        logger.error(error);
+        return res.status(500).send("内部サーバーエラー");
+    }
+});
+
+
 
 
 // ルーターをエクスポート（他のモジュールで使用可能にする）
