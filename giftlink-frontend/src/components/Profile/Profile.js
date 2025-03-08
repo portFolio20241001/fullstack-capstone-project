@@ -29,11 +29,14 @@ const Profile = () => {
       const email = sessionStorage.getItem("email");            // ユーザーのメールアドレスを取得
       const name = sessionStorage.getItem("name");              // ユーザー名を取得
 
-      if (name || authtoken) {
-        const storedUserDetails = {
-          name: name,
-          email: email
-        };
+        // name または authtoken が存在する場合
+        if (name || authtoken) {
+            // ユーザー情報をオブジェクトとして格納
+            const storedUserDetails = {
+            name: name,  // ユーザーの名前
+            email: email // ユーザーのメールアドレス
+            };
+  
 
         setUserDetails(storedUserDetails);      // ユーザー詳細を更新
         setUpdatedDetails(storedUserDetails);   // 更新用のデータも設定

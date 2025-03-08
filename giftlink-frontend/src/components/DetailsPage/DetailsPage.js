@@ -100,6 +100,14 @@ function DetailsPage() {
     // ギフトが見つからなかった場合、「Gift not found」を表示
     if (!gift) return <div>Gift not found</div>;
 
+
+    // Unixタイムスタンプを人間が読みやすい形式に変換する関数
+    const formatDate = (timestamp) => { // 詳細ページへ遷移する関数
+        const date = new Date(timestamp * 1000); // Unix timestamp は秒単位なのでミリ秒に変換
+        return date.toLocaleString(); // ローカルのフォーマットで日付を表示
+    };
+
+
     return (
         <div className="container mt-5">
             {/* 戻るボタン */}
@@ -130,10 +138,10 @@ function DetailsPage() {
                         {gift.condition}  {/* 状態 */}
                     </p>
                     <p><strong>Date Added:</strong> 
-                        {gift.dateAdded}  {/* 登録日 */}
+                        {formatDate(gift.date_added)}  {/* 登録日 */}
                     </p>
                     <p><strong>Age (Years):</strong> 
-                        {gift.age}  {/* ギフトの年数 */}
+                        {gift.age_years}  {/* ギフトの年数 */}
                     </p>
                     <p><strong>Description:</strong> 
                         {gift.description}  {/* ギフトの説明 */}
