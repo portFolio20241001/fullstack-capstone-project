@@ -1,51 +1,50 @@
-import React, { useState, useEffect } from 'react';         // React と useState, useEffect をインポート
-import { urlConfig } from '../../config';                   // ステップ1 - タスク1: 設定ファイルから URL 設定をインポート
-import { useAppContext } from '../../context/AuthContext';  // ステップ1 - タスク2: 認証コンテキストから `useAppContext` をインポート
-import { useNavigate } from 'react-router-dom';             // ステップ1 - タスク3: React Router の `useNavigate` フックをインポート（ページ遷移用）
+import React, { useState, useEffect } from 'react';         // React ライブラリと useState, useEffect フックをインポート
+import { urlConfig } from '../../config';                   // 設定ファイルから URL 設定をインポート
+import { useAppContext } from '../../context/AuthContext';  // 認証コンテキストから `useAppContext` をインポート
+import { useNavigate } from 'react-router-dom';             // React Router の `useNavigate` フックをインポート（ページ遷移用）
+import { Link } from 'react-router-dom';                    // React Router の `Link` コンポーネントをインポート（リンク作成用）
 
-import { Link } from 'react-router-dom';  // Link をインポート
-
-
-// スタイルシートのインポート
+// ログインページのスタイルシートをインポート
 import './LoginPage.css';
 
+// ログインページコンポーネントの定義
 function LoginPage() {
-    // ReactのuseStateフックを使用して、emailの状態を管理
+    // メールアドレスの入力値を管理するための state（初期値は空文字）
     const [email, setEmail] = useState('');
 
-    // ReactのuseStateフックを使用して、passwordの状態を管理
+    // パスワードの入力値を管理するための state（初期値は空文字）
     const [password, setPassword] = useState('');
 
-    // ユーザーが間違ったパスワードを入力した際に、エラーメッセージを表示するための状態
+    // 認証エラーメッセージを管理するための state（初期値は空文字）
     const [incorrect, setIncorrect] = useState('');
 
-    // React RouterのuseNavigateフックを使用して、ページ遷移を管理
+    // ページ遷移を制御するための useNavigate フックを使用
     const navigate = useNavigate();
 
-    // セッションストレージから認証トークン（Bearerトークン）を取得
+    // セッションストレージから Bearer トークンを取得（なければ null）
     const bearerToken = sessionStorage.getItem('bearer-token');
 
-    // グローバルなログイン状態を管理するコンテキストからsetIsLoggedIn関数を取得
+    // グローバルな認証状態を管理するコンテキストから setIsLoggedIn 関数を取得
     const { setIsLoggedIn } = useAppContext();
 
-    // コンポーネントがマウントされたときに実行される副作用処理
+    // コンポーネントがマウントされた際に実行される useEffect フック
     useEffect(() => {
-        // セッションストレージに認証トークンが存在する場合、アプリのメインページへリダイレクト
+        // すでに認証トークンが存在する場合、メインページへリダイレクト
         if (sessionStorage.getItem('auth-token')) {
             navigate('/app');
         }
-    }, [navigate]);
+    }, [navigate]); // 依存配列に navigate を指定し、変更時に再実行
 
-    // ログイン処理を行う関数
+    // ログイン処理を実行する関数（非同期処理）
     const handleLogin = async (e) => {
-        e.preventDefault(); // フォームのデフォルト送信を防ぐ
+        e.preventDefault(); // フォームのデフォルト送信を防止
 
-        // APIエンドポイントに対してログインリクエストを送信
+        // ログイン API にリクエストを送信
         const res = await fetch(`${urlConfig.backendUrl}/api/auth/login`, {
-            method: 'POST', // HTTPメソッドをPOSTに設定
+            method: 'POST', // HTTP メソッドを POST に設定
             headers: {
-                'content-type': 'application/json', // リクエストボディのデータ形式をJSONに指定
-                'Authorization': bearerToken ? `Bearer ${bearerToken}` : '', // Bearerトークンがあればヘッダーに追加
+                'content-type': 'application/json', // リクエストのデータ形式を JSON に指定
+                'Authorization': bearerToken ? `Bearer ${bearerToken}` : '', // Bearer トークンがあれば追加
             },
             body: JSON.stringify({
                 email: email,       // 入力されたメールアドレスを送信
@@ -53,29 +52,29 @@ function LoginPage() {
             }),
         });
 
-        // レスポンスをJSON形式に変換
+        // レスポンスを JSON に変換
         const json = await res.json();
-        console.log('Json', json); // デバッグ用にJSONデータをコンソールに出力
+        console.log('Json', json); // デバッグ用にレスポンスを出力
 
-        // 認証トークンがレスポンスに含まれている場合
+        // 認証トークンが含まれている場合、ログイン成功と判断
         if (json.authtoken) {
-            // セッションストレージに認証情報を保存
+            // 認証情報をセッションストレージに保存
             sessionStorage.setItem('auth-token', json.authtoken);
             sessionStorage.setItem('name', json.userName);
             sessionStorage.setItem('email', json.userEmail);
 
-            // ログイン状態をtrueに設定
+            // ログイン状態を更新
             setIsLoggedIn(true);
 
-            // アプリのメインページへリダイレクト
+            // メインページへリダイレクト
             navigate('/app');
         } else {
             // ログイン失敗時の処理
-            document.getElementById("email").value = ""; // メールアドレス入力欄をクリア
-            document.getElementById("password").value = ""; // パスワード入力欄をクリア
+            setEmail(''); // メールアドレス入力欄をクリア
+            setPassword(''); // パスワード入力欄をクリア
+            console.log(json.error); // エラーメッセージをコンソールに出力
 
-            console.log(json.error)
-
+            // エラーメッセージを適切に設定
             if (json.error === 'パスワードが間違っています') {
                 setIncorrect("パスワードが間違っています。もう一度試してください。");
             } else if (json.error === 'ユーザーが見つかりません。登録されていないメールアドレスです。') {
@@ -84,63 +83,57 @@ function LoginPage() {
                 setIncorrect("ログインに失敗しました。もう一度お試しください。");
             }
 
-            setTimeout(() => {
-                setIncorrect("");
-            }, 3000);
+            // 以前のエラーメッセージをクリアするためのタイマー設定
+            if (window.errorTimeout) clearTimeout(window.errorTimeout);
+            window.errorTimeout = setTimeout(() => setIncorrect(""), 3000);
         }
     };
 
     return (
         // 画面全体を囲むコンテナ
         <div className="container mt-5">
-            {/* 行を中央揃えにする */}
+            {/* 画面中央に配置する行 */}
             <div className="row justify-content-center">
-                {/* 中央に配置するためのカラム設定 */}
+                {/* 中央配置用のカラム設定 */}
                 <div className="col-md-6 col-lg-4">
-                    {/* ログインカードのスタイルを適用 */}
+                    {/* ログインフォームのカードデザイン */}
                     <div className="login-card p-4 border rounded">
-                        {/* ログインフォームのタイトル */}
+                        {/* タイトル（中央配置・太字） */}
                         <h2 className="text-center mb-4 font-weight-bold">Login</h2>
 
-                        {/* メールアドレス入力フィールド */}
-                        <div className="mb-3">
-                            {/* メールアドレスのラベル */}
-                            <label htmlFor="email" className="form-label">Email</label>
-                            {/* メールアドレスの入力フィールド */}
-                            <input
-                                id="email"  // 入力フィールドのid
-                                type="text"  // 入力タイプをテキストに設定
-                                className="form-control"  // Bootstrapのフォームコントロールを適用
-                                placeholder="Enter your email"  // プレースホルダーの設定
-                                value={email}  // stateの値を表示
-                                onChange={(e) => setEmail(e.target.value)}  // 入力内容が変わるたびにstateを更新
-                            />
-                        </div>
+                        {/* ログインフォーム */}
+                        <form onSubmit={handleLogin}>
+                            <div className="mb-3">
+                                <label htmlFor="email" className="form-label">Email</label>
+                                <input
+                                    id="email"
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Enter your email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="password" className="form-label">Password</label>
+                                <input
+                                    id="password"
+                                    type="password"
+                                    className="form-control"
+                                    placeholder="Enter your password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                            </div>
+                            {/* エラーメッセージ（エラー時に表示） */}
+                            {incorrect && <p className="text-danger text-center">{incorrect}</p>}
+                            {/* ログインボタン */}
+                            <button type="submit" className="btn btn-primary w-100 mb-3">Login</button>
+                        </form>
 
-                        {/* パスワード入力フィールド */}
-                        <div className="mb-4">
-                            {/* パスワードのラベル */}
-                            <label htmlFor="password" className="form-label">Password</label>
-                            {/* パスワードの入力フィールド */}
-                            <input
-                                id="password"  // 入力フィールドのid
-                                type="password"  // 入力タイプをパスワードに設定
-                                className="form-control"  // Bootstrapのフォームコントロールを適用
-                                placeholder="Enter your password"  // プレースホルダーの設定
-                                value={password}  // stateの値を表示
-                                onChange={(e) => setPassword(e.target.value)}  // 入力内容が変わるたびにstateを更新
-                            />
-                        </div>
-
-                        {/* エラーメッセージを表示するセクション */}
-                        {incorrect && <p className="text-danger text-center">{incorrect}</p>} 
-
-                        {/* ログインボタン。クリック時にhandleLogin関数が呼ばれる */}
-                        <button className="btn btn-primary w-100 mb-3" onClick={handleLogin}>Login</button>
-
-                        {/* 新規登録を促すリンク */}
+                        {/* 新規登録ページへのリンク */}
                         <p className="mt-4 text-center">
-                            New here? <Link to="/app/register" className="text-primary">Register Here</Link>  {/* 新規登録ページへのリンク */}
+                            New here? <Link to="/app/register" className="text-primary">Register Here</Link>
                         </p>
                     </div>
                 </div>
@@ -149,4 +142,5 @@ function LoginPage() {
     );
 }
 
-export default LoginPage;  // LoginPageコンポーネントをエクスポート
+// LoginPage コンポーネントをエクスポート
+export default LoginPage;
