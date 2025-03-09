@@ -52,13 +52,15 @@ const Profile = () => {
     setEditMode(true);
   };
 
-  // 入力変更時に状態を更新する関数
+  // 入力フィールドの変更を検知し、状態（updatedDetails）を更新する関数
   const handleInputChange = (e) => {
-    setUpdatedDetails({
-      ...updatedDetails,
-      [e.target.name]: e.target.value,
+      // 現在のupdatedDetailsの状態を維持しつつ、変更されたフィールドのみを更新する
+      setUpdatedDetails({
+      ...updatedDetails,  // スプレッド構文を使って既存のupdatedDetailsの値を展開
+     [e.target.name]: e.target.value,  // イベント発生元のname属性をキーにして新しい値を設定
     });
   };
+  
 
   // フォーム送信時の処理
   const handleSubmit = async (e) => {
