@@ -1,0 +1,50 @@
+name: 'CI/CD'  # ワークフローの名前
+
+on:
+  push:
+    branches: [master, main]  # master または main ブランチに push されたときに実行
+  pull_request:
+    branches: [master, main]  # master または main ブランチにプルリクエストが作成されたときに実行
+
+jobs:
+  lint_js:  # JavaScriptのリント（コードチェック）を行うジョブ
+      name: Lint JavaScript Files  # ジョブの名前
+      runs-on: ubuntu-latest  # 実行環境として最新の Ubuntu を使用
+      steps:
+      - name: Checkout Repository  # リポジトリのコードを取得
+        uses: actions/checkout@v3  # GitHubの公式アクションを使用
+
+      - name: Install Node.js  # Node.js をインストール
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14  # Node.jsのバージョンを14に指定
+
+      - name: Install JSHint  # JSHint（JavaScriptのリントツール）をインストール
+        run: npm install jshint --global
+
+      - name: Run Linter  # JSHint を実行してコードチェック
+        run: |
+          find ./giftlink-backend -name app.js -exec jshint {} +  # app.js をチェック
+          find ./giftlink-backend -name auth.js -exec jshint {} +  # auth.js をチェック
+          find ./giftlink-backend -name giftRoutes.js -exec jshint {} +  # giftRoutes.js をチェック
+          find ./giftlink-backend -name searchRoutes.js -exec jshint {} +  # searchRoutes.js をチェック
+          echo "Linted all the js files successfully"  # 成功メッセージを表示
+
+  client_build:  # フロントエンドのビルドを行うジョブ
+      name: Build client  # ジョブの名前
+      runs-on: ubuntu-latest  # 実行環境として最新の Ubuntu を使用
+      steps:
+      - name: Checkout Repository  # リポジトリのコードを取得
+        uses: actions/checkout@v3  # GitHubの公式アクションを使用
+
+      - name: Install Node.js  # Node.js をインストール
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14  # Node.jsのバージョンを14に指定
+
+      - name: Run build  # フロントエンドのビルドを実行
+        run: |
+          cd giftlink-frontend  # フロントエンドのディレクトリに移動
+          npm install  # 依存関係をインストール
+          npm run build  # ビルドを実行
+          echo "Client-side build successfully"  # 成功メッセージを表示
