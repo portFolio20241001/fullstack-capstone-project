@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "type": "module",
-    "homepage": "https://portFolio20241001.github.io/giftlink-frontend/",
+    "homepage": "https://portfolio20241001.github.io/fullstack-capstone-project/",
     "dependencies": {
         "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
         "@testing-library/jest-dom": "^5.17.0",
