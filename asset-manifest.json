@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/giftlink-frontend/static/css/main.3ab6304c.chunk.css",
+    "main.js": "/giftlink-frontend/static/js/main.bad81b83.chunk.js",
+    "main.js.map": "/giftlink-frontend/static/js/main.bad81b83.chunk.js.map",
+    "runtime-main.js": "/giftlink-frontend/static/js/runtime-main.718a7ba9.js",
+    "runtime-main.js.map": "/giftlink-frontend/static/js/runtime-main.718a7ba9.js.map",
+    "static/css/2.b71989ea.chunk.css": "/giftlink-frontend/static/css/2.b71989ea.chunk.css",
+    "static/js/2.045993c6.chunk.js": "/giftlink-frontend/static/js/2.045993c6.chunk.js",
+    "static/js/2.045993c6.chunk.js.map": "/giftlink-frontend/static/js/2.045993c6.chunk.js.map",
+    "index.html": "/giftlink-frontend/index.html",
+    "precache-manifest.dbae3196199863d251a8805714035b4f.js": "/giftlink-frontend/precache-manifest.dbae3196199863d251a8805714035b4f.js",
+    "service-worker.js": "/giftlink-frontend/service-worker.js",
+    "static/css/2.b71989ea.chunk.css.map": "/giftlink-frontend/static/css/2.b71989ea.chunk.css.map",
+    "static/css/main.3ab6304c.chunk.css.map": "/giftlink-frontend/static/css/main.3ab6304c.chunk.css.map",
+    "static/js/2.045993c6.chunk.js.LICENSE.txt": "/giftlink-frontend/static/js/2.045993c6.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.718a7ba9.js",
+    "static/css/2.b71989ea.chunk.css",
+    "static/js/2.045993c6.chunk.js",
+    "static/css/main.3ab6304c.chunk.css",
+    "static/js/main.bad81b83.chunk.js"
+  ]
+}

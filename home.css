@@ -1,0 +1,110 @@
+/* ======================== */
+/* タスク1: ボディのスタイリング */
+/* ======================== */
+body {
+    font-family: 'Montserrat', sans-serif; /* フォントをMontserratに設定 */
+    margin: 0; /* 余白をゼロに設定 */
+    padding: 0; /* パディングをゼロに設定 */
+    height: 100vh; /* 画面の高さいっぱいに設定 */
+    display: flex; /* フレックスボックスで中央配置 */
+    align-items: center; /* 垂直方向の中央揃え */
+    justify-content: center; /* 水平方向の中央揃え */
+    overflow: hidden; /* スクロールを無効化 */
+    background-color: #f4f4f4; /* 背景色を淡いグレーに設定 */
+}
+
+/* =================================== */
+/* タスク2: 背景とぼかし用の疑似要素 */
+/* =================================== */
+body::before {
+    content: ''; /* 空のコンテンツを指定 */
+    position: fixed; /* 画面全体を覆うように固定配置 */
+    top: 0;
+    left: 0;
+    width: 100%; /* 幅を画面いっぱいに設定 */
+    height: 100%; /* 高さを画面いっぱいに設定 */
+    background: url('/static/background.jpg') no-repeat center center; /* 背景画像を中央に配置 */
+    background-size: cover; /* 背景画像を画面全体にフィット */
+    filter: blur(10px); /* 背景にぼかしを適用 */
+    z-index: -1; /* 背景をコンテンツの後ろに配置 */
+}
+
+/* ============================== */
+/* タスク3: コンテンツエリアのスタイリング */
+/* ============================== */
+.content {
+    position: relative; /* 背景より前面に配置 */
+    z-index: 2; /* 他の要素より前面に表示 */
+    text-align: center; /* テキストを中央揃え */
+    color: #1a1a1a; /* テキストの色を暗めに設定 */
+    max-width: 800px; /* 最大幅を800pxに設定 */
+    margin: 0 auto; /* 水平中央揃え */
+    padding: 30px; /* 内側の余白を設定 */
+    background: rgba(255, 255, 255, 0.8); /* 背景を半透明の白に設定 */
+    border-radius: 15px; /* 角を丸くする */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* 影をつけて立体感を演出 */
+}
+
+/* ======================================= */
+/* タスク4: 見出し、段落、ボタンのスタイリング */
+/* ======================================= */
+h1 {
+    font-size: 3.5rem; /* 見出し1のフォントサイズを設定 */
+    color: #333; /* 文字色をやや暗く設定 */
+    margin-bottom: 10px; /* 下の余白を設定 */
+    font-weight: 700; /* 太字に設定 */
+}
+
+h2 {
+    font-size: 2.5rem; /* 見出し2のフォントサイズを設定 */
+    color: #555; /* 文字色を少し明るく設定 */
+    margin-bottom: 15px; /* 下の余白を設定 */
+    font-weight: 600; /* やや太字に設定 */
+}
+
+.lead {
+    font-size: 1.4rem; /* 説明文のフォントサイズを設定 */
+    color: #444; /* 文字色を中間色に設定 */
+    margin-bottom: 20px; /* 下の余白を設定 */
+    line-height: 1.6; /* 行間を調整 */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* 軽い影を適用 */
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #ff7eb3, #f54865); /* ボタンにグラデーションを適用 */
+    color: white; /* テキストカラーを白に設定 */
+    border: none; /* ボーダーをなくす */
+    padding: 12px 30px; /* パディングを設定 */
+    border-radius: 50px; /* ボタンを丸みのあるデザインに */
+    font-size: 1.2rem; /* フォントサイズを設定 */
+    font-weight: 700; /* 太字に設定 */
+    box-shadow: 0 5px 15px rgba(255, 117, 140, 0.3); /* 影をつけて立体感を演出 */
+    transition: all 0.3s ease-in-out; /* スムーズなアニメーション */
+    text-decoration: none; /* リンクの下線を削除 */
+    display: inline-block; /* インラインブロックで配置 */
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #f34260, #271dee); /* ホバー時に色を変更 */
+    transform: scale(1.05); /* 少し拡大して動きを演出 */
+    box-shadow: 0 8px 20px rgba(129, 117, 255, 0.5); /* 影を強調 */
+}
+
+/* ======================== */
+/* レスポンシブデザイン */
+/* ======================== */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.8rem; /* スマホではフォントサイズを小さめに */
+    }
+    h2 {
+        font-size: 2rem; /* スマホ向けにサイズ調整 */
+    }
+    .lead {
+        font-size: 1.2rem; /* スマホ向けにサイズ調整 */
+    }
+    .btn-primary {
+        font-size: 1rem; /* スマホ向けにボタンのサイズを調整 */
+        padding: 10px 25px; /* パディングを調整 */
+    }
+}
