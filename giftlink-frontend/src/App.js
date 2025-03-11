@@ -27,7 +27,7 @@ function App() {
       <Navbar /> 
       <Routes>
         {/* 初回訪問時に InitialPage を表示 */}
-        {/* Github Page向けには 「/fullstack-capstone-project」それ以外「/」*/}
+        {/* Github Page向けには 「/fullstack-capstone-project」IBMなどそれ以外の環境向けには「/」で更新してからDockerイメージbuildを*/}
         {!visited ? (
           <Route path="/fullstack-capstone-project" element={<InitialPage onVisit={() => setVisited(true)} />} /> // 初回訪問時の処理
         ) : (
