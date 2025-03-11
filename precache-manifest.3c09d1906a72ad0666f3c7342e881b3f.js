@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "434330bfa91482010b531634ac19bb65",
+    "revision": "90d979d6daf9cbd57dce3405bd9820c3",
     "url": "/fullstack-capstone-project/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fullstack-capstone-project/static/css/2.b71989ea.chunk.css"
   },
   {
-    "revision": "78a35662b5e88d080ca8",
+    "revision": "e268994a547a26482b92",
     "url": "/fullstack-capstone-project/static/css/main.3ab6304c.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fullstack-capstone-project/static/js/2.045993c6.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "78a35662b5e88d080ca8",
-    "url": "/fullstack-capstone-project/static/js/main.bad81b83.chunk.js"
+    "revision": "e268994a547a26482b92",
+    "url": "/fullstack-capstone-project/static/js/main.1313c330.chunk.js"
   },
   {
     "revision": "f520b79183f01d98fbbf",
