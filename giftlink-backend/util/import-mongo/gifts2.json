@@ -11,7 +11,7 @@
       "age_days": 400,
       "age_years": 1.1,
       "description": "A charming lamp that's been lighting up my reading nook...",
-      "image": "/images/lamp.jpeg"
+      "image": "/fullstack-capstone-project/images/lamp.jpeg"
     },
     {
       "id": "396",
@@ -24,7 +24,7 @@
       "age_days": 1073,
       "age_years": 2.94,
       "description": "Elegant, flowy curtains that have graced my living room windows...",
-      "image": "/images/curtains1.jpeg"
+      "image": "/fullstack-capstone-project/images/curtains1.jpeg"
     },
     {
       "id": "812",
@@ -37,7 +37,7 @@
       "age_days": 1053,
       "age_years": 2.88,
       "description": "This sturdy, well-loved bookshelf has been my literary companion...",
-      "image": "/images/bookshelf3.jpeg"
+      "image": "/fullstack-capstone-project/images/bookshelf3.jpeg"
     },
     {
       "id": "386",
@@ -50,7 +50,7 @@
       "age_days": 1719,
       "age_years": 4.71,
       "description": "These curtains have been the backdrop of my study...",
-      "image": "/images/curtains2.jpeg"
+      "image": "/fullstack-capstone-project/images/curtains2.jpeg"
     },
     {
       "id": "419",
@@ -63,7 +63,7 @@
       "age_days": 430,
       "age_years": 1.18,
       "description": "A compact and practical bookshelf that's been a tiny library...",
-      "image": "/images/bookshelf1.jpeg"
+      "image": "/fullstack-capstone-project/images/bookshelf1.jpeg"
     },
     {
       "id": "420",
@@ -76,7 +76,7 @@
       "age_days": 430,
       "age_years": 1.18,
       "description": "This bookshelf has been a fixture in my home office...",
-      "image": "/images/bookshelf2.jpeg"
+      "image": "/fullstack-capstone-project/images/bookshelf2.jpeg"
     },
     {
       "id": "421",
@@ -89,7 +89,7 @@
       "age_days": 400,
       "age_years": 1.09,
       "description": "This desk chair has been my companion during long work hours...",
-      "image": "/images/desk-chair.jpeg"
+      "image": "/fullstack-capstone-project/images/desk-chair.jpeg"
     },
     {
       "id": "422",
@@ -102,7 +102,7 @@
       "age_days": 600,
       "age_years": 1.64,
       "description": "This coffee table has served me well, holding countless cups of coffee...",
-      "image": "/images/coffee-table.jpeg"
+      "image": "/fullstack-capstone-project/images/coffee-table.jpeg"
     },
     {
       "id": "423",
@@ -115,7 +115,7 @@
       "age_days": 200,
       "age_years": 0.55,
       "description": "This laptop stand has been a lifesaver for my posture...",
-      "image": "/images/laptop-stand.jpeg"
+      "image": "/fullstack-capstone-project/images/laptop-stand.jpeg"
     },
     {
       "id": "424",
@@ -128,7 +128,7 @@
       "age_days": 800,
       "age_years": 2.19,
       "description": "This dining table has been the centerpiece of many family gatherings...",
-      "image": "/images/dining-table.jpeg"
+      "image": "/fullstack-capstone-project/images/dining-table.jpeg"
     },
     {
       "id": "425",
@@ -141,7 +141,7 @@
       "age_days": 1000,
       "age_years": 2.74,
       "description": "This couch has been a cozy spot for movie nights and lazy Sundays...",
-      "image": "/images/couch2.jpeg"
+      "image": "/fullstack-capstone-project/images/couch2.jpeg"
     },
     {
       "id": "426",
@@ -154,7 +154,7 @@
       "age_days": 900,
       "age_years": 2.47,
       "description": "This office desk has been my workspace for years...",
-      "image": "/images/office-desk.jpeg"
+      "image": "/fullstack-capstone-project/images/office-desk.jpeg"
     },
     {
       "id": "427",
@@ -167,7 +167,7 @@
       "age_days": 700,
       "age_years": 1.92,
       "description": "This TV stand has held my entertainment system with ease...",
-      "image": "/images/tv-stand.jpeg"
+      "image": "/fullstack-capstone-project/images/tv-stand.jpeg"
     },
     {
       "id": "428",
@@ -180,7 +180,7 @@
       "age_days": 1200,
       "age_years": 3.29,
       "description": "This bed frame has been a reliable support for many restful nights...",
-      "image": "/images/bed-frame.jpeg"
+      "image": "/fullstack-capstone-project/images/bed-frame.jpeg"
     },
     {
       "id": "429",
@@ -193,7 +193,7 @@
       "age_days": 1100,
       "age_years": 3.01,
       "description": "This side table has been a convenient spot for lamps and books...",
-      "image": "/images/side-table.jpeg"
+      "image": "/fullstack-capstone-project/images/side-table.jpeg"
     },
     {
       "id": "430",
@@ -206,7 +206,7 @@
       "age_days": 1300,
       "age_years": 3.56,
       "description": "This filing cabinet has organized many documents over the years...",
-      "image": "/images/filing-cabinet.jpeg"
+      "image": "/fullstack-capstone-project/images/filing-cabinet.jpeg"
     }
   ]
 }

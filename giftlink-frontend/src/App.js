@@ -27,10 +27,11 @@ function App() {
       <Navbar /> 
       <Routes>
         {/* 初回訪問時に InitialPage を表示 */}
+        {/* Github Page向けには 「/fullstack-capstone-project」それ以外「/」*/}
         {!visited ? (
-          <Route path="/" element={<InitialPage onVisit={() => setVisited(true)} />} /> // 初回訪問時の処理
+          <Route path="/fullstack-capstone-project" element={<InitialPage onVisit={() => setVisited(true)} />} /> // 初回訪問時の処理
         ) : (
-          <Route path="/" element={<MainPage />} /> // それ以降はMainPageを表示
+          <Route path="/fullstack-capstone-project" element={<MainPage />} /> // それ以降はMainPageを表示
         )}
         {/* /appパスでMainPageを表示 */}
         <Route path="/app" element={<MainPage />} />
